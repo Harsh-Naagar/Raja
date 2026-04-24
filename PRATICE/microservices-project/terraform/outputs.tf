@@ -37,7 +37,7 @@ output "eks_cluster_ca_cert" {
 
 output "efs_storage_bucket" {
   description = "S3 bucket for EFS storage"
-  value       = module.efs.storage_bucket_id
+  value       = "N/A - EFS module not configured"
 }
 
 output "public_subnet_ids" {
@@ -58,6 +58,28 @@ output "eks_cluster_security_group_id" {
 output "eks_nodes_security_group_id" {
   description = "EKS nodes security group ID"
   value       = module.security.eks_nodes_security_group_id
+}
+
+# Monitoring outputs
+output "log_group_application" {
+  description = "Application log group name"
+  value       = module.monitoring.log_group_application
+}
+
+output "sns_topic_arn" {
+  description = "SNS topic ARN for alerts"
+  value       = module.monitoring.sns_topic_arn
+}
+
+# RDS outputs
+output "db_endpoint" {
+  description = "Database endpoint address"
+  value       = module.rds.db_endpoint
+}
+
+output "db_security_group_id" {
+  description = "RDS security group ID"
+  value       = module.rds.db_security_group_id
 }
 
 output "alb_security_group_id" {

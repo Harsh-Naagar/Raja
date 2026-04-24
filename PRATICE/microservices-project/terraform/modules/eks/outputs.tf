@@ -18,6 +18,12 @@ output "cluster_security_group_id" {
   value       = aws_eks_cluster.main.vpc_config[0].cluster_security_group_id
 }
 
+output "cluster_ca_cert" {
+  description = "EKS cluster CA certificate (base64 encoded)"
+  value       = aws_eks_cluster.main.certificate_authority[0].data
+  sensitive   = true
+}
+
 output "node_group_arn" {
   description = "EKS node group ARN"
   value       = aws_eks_node_group.main.arn

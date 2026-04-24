@@ -35,3 +35,26 @@ module "eks" {
   node_max_capacity       = var.node_max_capacity
   tags                    = local.common_tags
 }
+
+module "monitoring" {
+  source = "./modules/monitoring"
+
+  region               = var.region
+  project_name         = var.project_name
+  environment          = var.environment
+  cluster_name         = var.cluster_name
+  alert_email          = ""
+  log_retention_days   = 30
+  tags                 = local.common_tags
+}
+
+module "rds" {
+  source = "./modules/rds"
+
+  project_name                 = var.project_name
+  environment                  = var.environment
+  vpc_id                       = module.vpc.vpc_id
+  private_subnet_ids           = module.vpc.private_subnet_ids
+  eks_nodes_security_group_id  = module.security.eks_nodes_security_group_id
+  tags                         = local.common_tags
+}
